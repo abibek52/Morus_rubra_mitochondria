@@ -1,0 +1,40 @@
+*********************************Codes and Scripts used in Morus rubra mitogenome study***********************************
+**************************************************************************************************************************
+1. Quality control of the raw data
+(bash)
+
+# using FastQC version 0.11.9
+$ module load fastqc
+$ fastqc /path/to/Morus1_R1.fastq /path/to/Morus2_R2.fastq	#R1 and R2 represents the Pair-ended reads for Morus
+
+# using Trimmomatic to trim adapter and low quality bases
+$ module load trimmomatic
+$ trimmomatic PE -phred33 -trimlog /out_path/to/Morus_trimlog -summary /out_path/to/Morus_summary /path/to/Morus_R1.fastq.gz /path/to/Morus_R2.fastq.gz /path/to/Morus_R1_pair /path/to/Morus_R1_unpair /path/to/Morus_R2_pair /path/to/Morus_R2_unpair ILLUMINACLIP:TruSeq2-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36
+
+# Multiqc version 1.13
+$ module load multiqc
+$ multiqc .
+
+**************************************************************************************************************************
+
+2. Assembly of mitogenome using Get Organelle version 1.7.7.1
+(bash)
+$ srun -N1 -c30 --time=14-00:00:0 --partition=compute --pty bash #srun to allocate more resources
+$ conda activate get_organelle
+$ get_organelle_from_reads.py -s /path/to/.GetOrganelle/SeedDatabase/seed.fasta -1 Morus_R1_pair -2 Morus_R2_pair -o /out_path/to/Morus_mitogenome -R 20 -F embplant_mt 
+
+**************************************************************************************************************************
+
+3. Multiple sequence alignment using Multiple Alignment using Fast Fourier Transform (MAFFT) version 7.525
+(bash)
+$ module load mafft
+$ mafft /path/to/input.fasta > /path_out/to/output.fasta
+
+**************************************************************************************************************************
+
+4. Phylogenetic Analysis using IQtree for MAFFT-aligned sequences with 1000 bootstrap replicates
+(bash)
+$ module load iqtree
+$ iqtree2 -s /path/to/output_sequences.fasta --modelomatic -b 1000 -T AUTO
+
+**************************************************************************************************************************
