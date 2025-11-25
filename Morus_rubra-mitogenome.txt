@@ -21,7 +21,7 @@ $ multiqc .
 (bash)
 $ srun -N1 -c30 --time=14-00:00:0 --partition=compute --pty bash #srun to allocate more resources
 $ conda activate get_organelle
-$ get_organelle_from_reads.py -s /path/to/.GetOrganelle/SeedDatabase/seed.fasta -1 Morus_R1_pair -2 Morus_R2_pair -o /out_path/to/Morus_mitogenome -R 20 -F embplant_mt 
+$ get_organelle_from_reads.py -s /path/to/.GetOrganelle/SeedDatabase/seed.fasta -1 Morus_R1_pair -2 Morus_R2_pair -o /out_path/to/Morus_mitogenome -R 20 -F embplant_mt -t 1000
 
 **************************************************************************************************************************
 
@@ -38,3 +38,4 @@ $ module load iqtree
 $ iqtree2 -s /path/to/output_sequences.fasta --modelomatic -b 1000 -T AUTO
 
 **************************************************************************************************************************
+
