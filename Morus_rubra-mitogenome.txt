@@ -9,7 +9,7 @@ $ fastqc /path/to/Morus1_R1.fastq /path/to/Morus2_R2.fastq	#R1 and R2 represents
 
 # using Trimmomatic to trim adapter and low quality bases
 $ module load trimmomatic
-$ trimmomatic PE -phred33 -trimlog /out_path/to/Morus_trimlog -summary /out_path/to/Morus_summary /path/to/Morus_R1.fastq.gz /path/to/Morus_R2.fastq.gz /path/to/Morus_R1_pair /path/to/Morus_R1_unpair /path/to/Morus_R2_pair /path/to/Morus_R2_unpair ILLUMINACLIP:TruSeq2-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36
+$ trimmomatic PE -phred33 -trimlog /out_path/to/Morus_trimlog -summary /out_path/to/Morus_summary /path/to/Morus_R1.fastq.gz /path/to/Morus_R2.fastq.gz /path/to/Morus_R1_pair /path/to/Morus_R1_unpair /path/to/Morus_R2_pair /path/to/Morus_R2_unpair ILLUMINACLIP:TruSeq2-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36 SLIDINGWINDOW:4:15
 
 # Multiqc version 1.13
 $ module load multiqc
@@ -38,4 +38,5 @@ $ module load iqtree
 $ iqtree2 -s /path/to/output_sequences.fasta --modelomatic -b 1000 -T AUTO
 
 **************************************************************************************************************************
+
 
